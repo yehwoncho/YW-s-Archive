@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0B0E2E">
+<title>Projects — YW's Archive</title>
+<meta name="description" content="웹으로 영상적 경험을 만드는 사람의 프로젝트 8개. 전부 진행 중입니다.">
+<meta property="og:title" content="Projects — YW's Archive">
+<meta property="og:description" content="웹으로 영상적 경험을 만드는 사람의 프로젝트 8개. 전부 진행 중입니다.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B0E2E'/%3E%3Ctext x='16' y='23' font-family='Arial,sans-serif' font-weight='700' font-size='19' fill='%23C6FF4A' text-anchor='middle'%3EY%3C/text%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=Noto+Sans+KR:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  /* design.md 3.1 팔레트 (딥 사이버 & 네온) — 8색, index.html과 동일 */
+  --bg:      #0B0E2E;
+  --surface: #171A45;
+  --text:    #F1EEFA;
+  --text-sub:#A6A3D1;
+  --border:  #34386E;
+  --lime:    #C6FF4A;
+  --pink:    #FF3FA4;
+  --cyan:    #33E1FF;
+
+  --font-title: 'Space Grotesk', sans-serif;
+  --font-body:  'Noto Sans KR', sans-serif;
+}
+
+* , *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+body.modal-open { overflow: hidden; }
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* 배경 장식 — design.md 5.3 격자, opacity 5~8%, 사이버 블루 1px, 정적 */
+.grid-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(51,225,255,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(51,225,255,0.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+  -webkit-mask-image: radial-gradient(ellipse 100% 70% at 50% 0%, #000 40%, transparent 85%);
+          mask-image: radial-gradient(ellipse 100% 70% at 50% 0%, #000 40%, transparent 85%);
+}
+
+.glow {
+  position: fixed;
+  left: 50%;
+  top: -10%;
+  width: 900px;
+  height: 600px;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(51,225,255,0.10) 0%, rgba(11,14,46,0) 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.page {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 40px 80px;
+}
+
+/* 상단 바 — design.md 5.2/prd.md 5.2: 서비스명(로고) + About 링크 */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 8px 0 40px;
+  opacity: 0;
+  animation: fade-in 0.3s ease-out forwards;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.brand {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--text);
+  text-decoration: none;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.brand:focus-visible,
+.about-link:focus-visible,
+.card:focus-visible,
+.modal-close:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+}
+
+.about-link {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--lime);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  transition: text-decoration-thickness 0.2s ease-out;
+}
+
+.about-link:hover {
+  text-decoration-thickness: 2px;
+}
+
+.lede {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text-sub);
+  margin: 0 0 40px;
+  max-width: 60ch;
+  opacity: 0;
+  animation: fade-in 0.3s ease-out forwards;
+  animation-delay: 0.05s;
+}
+
+/* 그리드 — design.md 5.4 / prd.md 5.2 */
+.grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 1024px) {
+  .page { padding-left: 32px; padding-right: 32px; }
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 767px) {
+  .page { padding-left: 20px; padding-right: 20px; }
+  .grid { grid-template-columns: 1fr; }
+}
+
+/* 카드 — design.md 6.2 */
+.card {
+  all: unset;
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 180px;
+  padding: 24px;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: card-in 0.3s ease-out forwards;
+  transition: transform 0.2s ease-out, border-color 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+@keyframes card-in {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 리스트 진입 — design.md 7.1: 카드 8개 0.05초 간격 순차 등장 */
+.grid > li:nth-child(1) .card { animation-delay: 0.10s; }
+.grid > li:nth-child(2) .card { animation-delay: 0.15s; }
+.grid > li:nth-child(3) .card { animation-delay: 0.20s; }
+.grid > li:nth-child(4) .card { animation-delay: 0.25s; }
+.grid > li:nth-child(5) .card { animation-delay: 0.30s; }
+.grid > li:nth-child(6) .card { animation-delay: 0.35s; }
+.grid > li:nth-child(7) .card { animation-delay: 0.40s; }
+.grid > li:nth-child(8) .card { animation-delay: 0.45s; }
+
+.card:hover {
+  transform: translateY(-2px);
+  border-color: var(--cyan);
+  box-shadow: 0 0 16px rgba(51,225,255,0.18);
+}
+
+.card__badge {
+  position: absolute;
+  top: -1px;
+  right: 24px;
+  transform: translateY(-50%);
+  background-color: var(--lime);
+  color: var(--bg);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  padding: 4px 10px;
+  border: 1px solid #6E8B22;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(198,255,74,0.3);
+}
+
+.card__title {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.3;
+  color: var(--text);
+  margin: 12px 0 8px;
+}
+
+.card__field {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--pink);
+  margin: 0 0 12px;
+}
+
+.card__desc {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-sub);
+  margin: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .topbar, .lede, .card {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .card { transition: none; }
+  .card:hover { transform: none; }
+  .about-link { transition: none; }
+}
+
+/* 모달 — design.md 6.3 */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  background-color: rgba(11,14,46,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+}
+
+.modal-overlay[hidden] { display: none; }
+.modal-overlay.is-open { opacity: 1; }
+
+.modal {
+  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+  max-width: 720px;
+  max-height: 85vh;
+  overflow-y: auto;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 0 32px rgba(51,225,255,0.15);
+  padding: 40px;
+  transform: translateY(8px);
+  transition: transform 0.3s ease-out;
+}
+
+.modal-overlay.is-open .modal { transform: translateY(0); }
+
+@media (max-width: 767px) {
+  .modal { padding: 24px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modal-overlay, .modal { transition: none; }
+}
+
+.modal-close {
+  all: unset;
+  box-sizing: border-box;
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-sub);
+  border-radius: 8px;
+}
+
+.modal-close:hover { color: var(--text); }
+
+.modal-badge {
+  display: inline-block;
+  background-color: var(--lime);
+  color: var(--bg);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  padding: 4px 10px;
+  border: 1px solid #6E8B22;
+  border-radius: 4px;
+  margin: 0 0 16px;
+}
+
+.modal-title {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 1.3;
+  color: var(--text);
+  margin: 0 0 8px;
+  padding-right: 40px;
+}
+
+.modal-field {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--pink);
+  margin: 0 0 24px;
+}
+
+.modal-desc {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text);
+  margin: 0 0 16px;
+}
+
+.modal-note {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-sub);
+  margin: 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+</style>
+</head>
+
+<body>
+
+<div class="grid-bg" aria-hidden="true"></div>
+<div class="glow" aria-hidden="true"></div>
+
+<div class="page">
+  <h1 class="sr-only">프로젝트 리스트</h1>
+
+  <header class="topbar">
+    <a class="brand" href="index.html">YW's Archive</a>
+    <a class="about-link" href="about.html">About</a>
+  </header>
+
+  <p class="lede">8개 프로젝트가 각자 다른 방식으로 진행 중입니다. 아직 전부 준비 중이라, 카드를 눌러 진행 상황을 볼 수 있습니다.</p>
+
+  <main>
+    <ul class="grid" role="list" id="grid">
+      <li>
+        <button class="card" type="button" data-index="0">
+          <span class="card__badge">COMING SOON</span>
+          <h2 class="card__title">YW's Archive</h2>
+          <p class="card__field">Web Direction</p>
+          <p class="card__desc">지금 보고 있는 이 사이트를 스크롤과 타이밍으로 직접 연출하고 있습니다</p>
+        </button>
+      </li>
+      <li>
+        <button class="card" type="button" data-index="1">
+          <span class="card__badge">COMING SOON</span>
+          <h2 class="card__title">장면, 이어달리기</h2>
+          <p class="card__field">Scroll Cinema</p>
+          <p class="card__desc">직접 찍은 장면들을 스크롤 위치에 맞춰 잇는 웹 페이지를 만들고 있습니다</p>
+        </button>
+      </li>
+      <li>
+        <button class="card" type="button" data-index="2">
+          <span class="card__badge">COMING SOON</span>
+          <h2 class="card__title">리듬만 있는 문장</h2>
+          <p class="card__field">Kinetic Type</p>
+          <p class="card__desc">가사나 대사 없이 리듬으로만 움직이는 타이포그래피를 만들고 있습니다</p>
+        </button>
+      </li>
+      <li>
+        <button class="card" type="button" data-index="3">
+          <span class="card__badge">COMING SOON</span>
+          <h2 class="card__title">색을 입히는 방식</h2>
+          <p class="card__field">Color Grading</p>
+          <p class="card__desc">직접 찍은 사진에 색보정 로직을 실시간으로 입혀보고 있습니다</p>
+        </button>
+      </li>
+      <li>
+        <button class="card" type="button" data-index="4">
+          <span class="card__badge">COMING SOON</span>
+          <h2 class="card__title">존재하지 않는 영화의 시작</h2>
+          <p class="card__field">Title Sequence</p>
+          <p class="card__desc">가상의 단편영화를 상상하며 오프닝 타이틀 시퀀스를 만들고 있습니다</p>
+        </button>
+      </li>
+      <li>
+        <button class="card" type="button" data-index="5">
+          <span class="card__badge">COMING SOON</span>
+          <h2 class="card__title">소리에 반응하는 화면</h2>
+          <p class="card__field">Audio Reactive</p>
+          <p class="card__desc">음악의 파형에 맞춰 화면이 반응하는 비주얼라이저를 만들고 있습니다</p>
+        </button>
+      </li>
+      <li>
+        <button class="card" type="button" data-index="6">
+          <span class="card__badge">COMING SOON</span>
+          <h2 class="card__title">3분짜리 협업</h2>
+          <p class="card__field">Music Video</p>
+          <p class="card__desc">아티스트와 협업해 짧은 뮤직비디오를 촬영하고 그 과정을 기록합니다</p>
+        </button>
+      </li>
+      <li>
+        <button class="card" type="button" data-index="7">
+          <span class="card__badge">COMING SOON</span>
+          <h2 class="card__title">장면 밖의 사람들</h2>
+          <p class="card__field">Short Film</p>
+          <p class="card__desc">배우·스태프와 짧은 내러티브 영상을 촬영해 웹으로 옮깁니다</p>
+        </button>
+      </li>
+    </ul>
+  </main>
+</div>
+
+<div class="modal-overlay" id="modalOverlay" hidden>
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
+    <button class="modal-close" id="modalClose" aria-label="닫기" type="button">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+        <path d="M2 2L16 16M16 2L2 16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <span class="modal-badge">COMING SOON</span>
+    <h2 class="modal-title" id="modalTitle"></h2>
+    <p class="modal-field" id="modalField"></p>
+    <p class="modal-desc" id="modalDesc"></p>
+    <p class="modal-note" id="modalNote"></p>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* 카드에는 없는 "예정 내용" 한 줄 — Coming Soon 모달용 (prd.md 5.3) */
+  var NOTES = [
+    "지금 보고 있는 사이트 자체가 결과물입니다. 완성되면 이 페이지도 실제 내용으로 바뀝니다.",
+    "촬영한 장면들의 순서를 스크롤에 맞춰 배치하는 작업을 진행하고 있습니다.",
+    "문장이 리듬에 맞춰 나타나고 사라지는 방식을 실험하고 있습니다.",
+    "사진에 색을 입히는 로직을 웹에서 실시간으로 처리하는 방법을 찾고 있습니다.",
+    "타이틀이 등장하는 순서와 속도를 여러 버전으로 시도하고 있습니다.",
+    "음악의 파형 데이터를 읽어와 화면과 연결하는 단계입니다.",
+    "협업할 아티스트를 찾는 단계입니다. 촬영 일정은 아직 정해지지 않았습니다.",
+    "캐스팅과 촬영 장소를 먼저 정리하고 있습니다."
+  ];
+
+  var grid = document.getElementById('grid');
+  var overlay = document.getElementById('modalOverlay');
+  var modal = document.getElementById('modal');
+  var closeBtn = document.getElementById('modalClose');
+  var titleEl = document.getElementById('modalTitle');
+  var fieldEl = document.getElementById('modalField');
+  var descEl = document.getElementById('modalDesc');
+  var noteEl = document.getElementById('modalNote');
+
+  var lastTrigger = null;
+  var scrollLockPad = 0;
+
+  function lockScroll() {
+    scrollLockPad = window.innerWidth - document.documentElement.clientWidth;
+    document.body.style.paddingRight = scrollLockPad > 0 ? scrollLockPad + 'px' : '';
+    document.body.classList.add('modal-open');
+  }
+
+  function unlockScroll() {
+    document.body.classList.remove('modal-open');
+    document.body.style.paddingRight = '';
+  }
+
+  function getFocusable() {
+    return modal.querySelectorAll(
+      'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+  }
+
+  function trapKeydown(e) {
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      closeModal();
+      return;
+    }
+    if (e.key !== 'Tab') return;
+
+    var focusable = getFocusable();
+    if (!focusable.length) return;
+    var first = focusable[0];
+    var last = focusable[focusable.length - 1];
+
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  }
+
+  function openModal(card) {
+    var index = parseInt(card.getAttribute('data-index'), 10);
+    var title = card.querySelector('.card__title').textContent;
+    var field = card.querySelector('.card__field').textContent;
+    var desc = card.querySelector('.card__desc').textContent;
+
+    titleEl.textContent = title;
+    fieldEl.textContent = field;
+    descEl.textContent = desc;
+    noteEl.textContent = NOTES[index] || '';
+
+    lastTrigger = card;
+    overlay.hidden = false;
+    lockScroll();
+
+    // 리플로우 후 트랜지션이 걸리도록 한 프레임 대기
+    requestAnimationFrame(function () {
+      overlay.classList.add('is-open');
+    });
+
+    modal.focus();
+    document.addEventListener('keydown', trapKeydown);
+  }
+
+  function closeModal() {
+    document.removeEventListener('keydown', trapKeydown);
+    unlockScroll();
+
+    function finish() {
+      overlay.hidden = true;
+      if (lastTrigger) lastTrigger.focus();
+      lastTrigger = null;
+    }
+
+    if (reduced) {
+      overlay.classList.remove('is-open');
+      finish();
+    } else {
+      overlay.classList.remove('is-open');
+      window.setTimeout(finish, 300);
+    }
+  }
+
+  grid.addEventListener('click', function (e) {
+    var card = e.target.closest('.card');
+    if (card) openModal(card);
+  });
+
+  closeBtn.addEventListener('click', closeModal);
+
+  overlay.addEventListener('click', function (e) {
+    if (e.target === overlay) closeModal();
+  });
+})();
+</script>
+</body>
+</html>
