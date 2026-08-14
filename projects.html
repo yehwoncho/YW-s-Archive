@@ -213,6 +213,16 @@ body.modal-open { overflow: hidden; }
   box-shadow: 0 0 16px rgba(51,225,255,0.18);
 }
 
+/* 카드 썸네일 — 배포된 프로젝트의 첫 화면 캡처, 카드 상단 모서리까지 꽉 채움 */
+.card__thumb {
+  display: block;
+  width: calc(100% + 48px);
+  margin: -24px -24px 16px;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 12px 12px 0 0;
+}
+
 .card__badge {
   position: absolute;
   top: -1px;
@@ -228,6 +238,13 @@ body.modal-open { overflow: hidden; }
   border: 1px solid #6E8B22;
   border-radius: 4px;
   box-shadow: 0 0 10px rgba(198,255,74,0.3);
+}
+
+/* LIVE 뱃지 — 배포된 프로젝트용, cyan 계열로 COMING SOON(lime)과 구분 */
+.card__badge--live {
+  background-color: var(--cyan);
+  border-color: #1B7A8C;
+  box-shadow: 0 0 10px rgba(51,225,255,0.35);
 }
 
 .card__title {
@@ -400,17 +417,18 @@ body.modal-open { overflow: hidden; }
   <main>
     <ul class="grid" role="list" id="grid">
       <li>
-        <button class="card" type="button" data-index="0">
-          <span class="card__badge">COMING SOON</span>
-          <h2 class="card__title">YW's Archive</h2>
+        <a class="card" href="https://review-wu8n.vercel.app/" target="_blank" rel="noopener noreferrer" data-index="0">
+          <img class="card__thumb" src="assets/project1-thumb.jpg" alt="밥약속 웹사이트 첫 화면 스크린샷" loading="lazy">
+          <span class="card__badge card__badge--live">LIVE</span>
+          <h2 class="card__title">PROJECT 1</h2>
           <p class="card__field">Web Direction</p>
-          <p class="card__desc">지금 보고 있는 이 사이트를 스크롤과 타이밍으로 직접 연출하고 있습니다</p>
-        </button>
+          <p class="card__desc">맛집 리뷰 서비스 제작</p>
+        </a>
       </li>
       <li>
         <button class="card" type="button" data-index="1">
           <span class="card__badge">COMING SOON</span>
-          <h2 class="card__title">장면, 이어달리기</h2>
+          <h2 class="card__title">PROJECT 2</h2>
           <p class="card__field">Scroll Cinema</p>
           <p class="card__desc">직접 찍은 장면들을 스크롤 위치에 맞춰 잇는 웹 페이지를 만들고 있습니다</p>
         </button>
@@ -418,7 +436,7 @@ body.modal-open { overflow: hidden; }
       <li>
         <button class="card" type="button" data-index="2">
           <span class="card__badge">COMING SOON</span>
-          <h2 class="card__title">리듬만 있는 문장</h2>
+          <h2 class="card__title">PROJECT 3</h2>
           <p class="card__field">Kinetic Type</p>
           <p class="card__desc">가사나 대사 없이 리듬으로만 움직이는 타이포그래피를 만들고 있습니다</p>
         </button>
@@ -426,7 +444,7 @@ body.modal-open { overflow: hidden; }
       <li>
         <button class="card" type="button" data-index="3">
           <span class="card__badge">COMING SOON</span>
-          <h2 class="card__title">색을 입히는 방식</h2>
+          <h2 class="card__title">PROJECT 4</h2>
           <p class="card__field">Color Grading</p>
           <p class="card__desc">직접 찍은 사진에 색보정 로직을 실시간으로 입혀보고 있습니다</p>
         </button>
@@ -434,7 +452,7 @@ body.modal-open { overflow: hidden; }
       <li>
         <button class="card" type="button" data-index="4">
           <span class="card__badge">COMING SOON</span>
-          <h2 class="card__title">존재하지 않는 영화의 시작</h2>
+          <h2 class="card__title">PROJECT 5</h2>
           <p class="card__field">Title Sequence</p>
           <p class="card__desc">가상의 단편영화를 상상하며 오프닝 타이틀 시퀀스를 만들고 있습니다</p>
         </button>
@@ -442,7 +460,7 @@ body.modal-open { overflow: hidden; }
       <li>
         <button class="card" type="button" data-index="5">
           <span class="card__badge">COMING SOON</span>
-          <h2 class="card__title">소리에 반응하는 화면</h2>
+          <h2 class="card__title">PROJECT 6</h2>
           <p class="card__field">Audio Reactive</p>
           <p class="card__desc">음악의 파형에 맞춰 화면이 반응하는 비주얼라이저를 만들고 있습니다</p>
         </button>
@@ -450,7 +468,7 @@ body.modal-open { overflow: hidden; }
       <li>
         <button class="card" type="button" data-index="6">
           <span class="card__badge">COMING SOON</span>
-          <h2 class="card__title">3분짜리 협업</h2>
+          <h2 class="card__title">PROJECT 7</h2>
           <p class="card__field">Music Video</p>
           <p class="card__desc">아티스트와 협업해 짧은 뮤직비디오를 촬영하고 그 과정을 기록합니다</p>
         </button>
@@ -458,7 +476,7 @@ body.modal-open { overflow: hidden; }
       <li>
         <button class="card" type="button" data-index="7">
           <span class="card__badge">COMING SOON</span>
-          <h2 class="card__title">장면 밖의 사람들</h2>
+          <h2 class="card__title">PROJECT 8</h2>
           <p class="card__field">Short Film</p>
           <p class="card__desc">배우·스태프와 짧은 내러티브 영상을 촬영해 웹으로 옮깁니다</p>
         </button>
@@ -596,7 +614,9 @@ body.modal-open { overflow: hidden; }
 
   grid.addEventListener('click', function (e) {
     var card = e.target.closest('.card');
-    if (card) openModal(card);
+    if (!card) return;
+    if (card.tagName === 'A') return; // 배포된 프로젝트 카드는 링크 기본 동작(새 탭 이동)만 수행
+    openModal(card);
   });
 
   closeBtn.addEventListener('click', closeModal);
