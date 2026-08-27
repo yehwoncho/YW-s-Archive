@@ -450,24 +450,23 @@ body.modal-open { overflow: hidden; }
         </a>
       </li>
       <li>
-        <button class="card" type="button" data-index="5">
-          <span class="card__badge">COMING SOON</span>
+        <a class="card" href="https://mbti-test-277.vercel.app/" target="_blank" rel="noopener noreferrer" data-index="6">
+          <img class="card__thumb" src="assets/project7-thumb.jpg" alt="MBTI 공부법 연구소 웹사이트 첫 화면 스크린샷" loading="lazy">
+          <span class="card__badge card__badge--live">LIVE</span>
           <h2 class="card__title">PROJECT 7</h2>
-          <p class="card__desc">음악의 파형에 맞춰 화면이 반응하는 비주얼라이저를 만들고 있습니다</p>
-        </button>
+          <p class="card__desc">MBTI 기질 그룹별 공부법·시험 준비 전략 정리 서비스</p>
+        </a>
       </li>
       <li>
         <button class="card" type="button" data-index="6">
           <span class="card__badge">COMING SOON</span>
           <h2 class="card__title">PROJECT 8</h2>
-          <p class="card__desc">아티스트와 협업해 짧은 뮤직비디오를 촬영하고 그 과정을 기록합니다</p>
         </button>
       </li>
       <li>
         <button class="card" type="button" data-index="7">
           <span class="card__badge">COMING SOON</span>
           <h2 class="card__title">PROJECT 9</h2>
-          <p class="card__desc">배우·스태프와 짧은 내러티브 영상을 촬영해 웹으로 옮깁니다</p>
         </button>
       </li>
     </ul>
@@ -502,8 +501,8 @@ body.modal-open { overflow: hidden; }
     "사진에 색을 입히는 로직을 웹에서 실시간으로 처리하는 방법을 찾고 있습니다.",
     "타이틀이 등장하는 순서와 속도를 여러 버전으로 시도하고 있습니다.",
     "음악의 파형 데이터를 읽어와 화면과 연결하는 단계입니다.",
-    "협업할 아티스트를 찾는 단계입니다. 촬영 일정은 아직 정해지지 않았습니다.",
-    "캐스팅과 촬영 장소를 먼저 정리하고 있습니다."
+    "",
+    ""
   ];
 
   var grid = document.getElementById('grid');
@@ -559,11 +558,15 @@ body.modal-open { overflow: hidden; }
   function openModal(card) {
     var index = parseInt(card.getAttribute('data-index'), 10);
     var title = card.querySelector('.card__title').textContent;
-    var desc = card.querySelector('.card__desc').textContent;
+    var descNode = card.querySelector('.card__desc');
+    var desc = descNode ? descNode.textContent : '';
 
     titleEl.textContent = title;
     descEl.textContent = desc;
-    noteEl.textContent = NOTES[index] || '';
+    descEl.hidden = !desc;
+    var note = NOTES[index] || '';
+    noteEl.textContent = note;
+    noteEl.hidden = !note;
 
     lastTrigger = card;
     overlay.hidden = false;
