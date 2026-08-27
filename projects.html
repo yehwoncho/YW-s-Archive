@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0B0E2E">
 <title>Projects — YW's Archive</title>
-<meta name="description" content="웹으로 영상적 경험을 만드는 사람의 프로젝트 8개. 전부 진행 중입니다.">
+<meta name="description" content="웹으로 영상적 경험을 만드는 사람의 프로젝트 9개. 전부 진행 중입니다.">
 <meta property="og:title" content="Projects — YW's Archive">
-<meta property="og:description" content="웹으로 영상적 경험을 만드는 사람의 프로젝트 8개. 전부 진행 중입니다.">
+<meta property="og:description" content="웹으로 영상적 경험을 만드는 사람의 프로젝트 9개. 전부 진행 중입니다.">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B0E2E'/%3E%3Ctext x='16' y='23' font-family='Arial,sans-serif' font-weight='700' font-size='19' fill='%23C6FF4A' text-anchor='middle'%3EY%3C/text%3E%3C/svg%3E">
 
@@ -197,7 +197,7 @@ body.modal-open { overflow: hidden; }
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* 리스트 진입 — design.md 7.1: 카드 8개 0.05초 간격 순차 등장 */
+/* 리스트 진입 — design.md 7.1: 카드 9개 0.05초 간격 순차 등장 */
 .grid > li:nth-child(1) .card { animation-delay: 0.10s; }
 .grid > li:nth-child(2) .card { animation-delay: 0.15s; }
 .grid > li:nth-child(3) .card { animation-delay: 0.20s; }
@@ -206,6 +206,7 @@ body.modal-open { overflow: hidden; }
 .grid > li:nth-child(6) .card { animation-delay: 0.35s; }
 .grid > li:nth-child(7) .card { animation-delay: 0.40s; }
 .grid > li:nth-child(8) .card { animation-delay: 0.45s; }
+.grid > li:nth-child(9) .card { animation-delay: 0.50s; }
 
 .card:hover {
   transform: translateY(-2px);
@@ -396,7 +397,7 @@ body.modal-open { overflow: hidden; }
     <a class="about-link" href="about.html">About</a>
   </header>
 
-  <p class="lede">8개 프로젝트가 각자 다른 방식으로 진행 중입니다. 아직 전부 준비 중이라, 카드를 눌러 진행 상황을 볼 수 있습니다.</p>
+  <p class="lede">9개 프로젝트가 각자 다른 방식으로 진행 중입니다. 아직 전부 준비 중이라, 카드를 눌러 진행 상황을 볼 수 있습니다.</p>
 
   <main>
     <ul class="grid" role="list" id="grid">
@@ -425,39 +426,47 @@ body.modal-open { overflow: hidden; }
         </a>
       </li>
       <li>
-        <a class="card" href="https://dongne-hankki.vercel.app/" target="_blank" rel="noopener noreferrer" data-index="3">
-          <img class="card__thumb" src="assets/project4-thumb.jpg" alt="동네한끼 웹사이트 첫 화면 스크린샷" loading="lazy">
+        <a class="card" href="https://oneurui-air.vercel.app/" target="_blank" rel="noopener noreferrer" data-index="3">
+          <img class="card__thumb" src="assets/project-air-thumb.jpg" alt="오늘의 공기 웹사이트 첫 화면 스크린샷" loading="lazy">
           <span class="card__badge card__badge--live">LIVE</span>
           <h2 class="card__title">PROJECT 4</h2>
+          <p class="card__desc">지역별 실시간 미세먼지·초미세먼지 농도 확인 서비스</p>
+        </a>
+      </li>
+      <li>
+        <a class="card" href="https://dongne-hankki.vercel.app/" target="_blank" rel="noopener noreferrer" data-index="4">
+          <img class="card__thumb" src="assets/project4-thumb.jpg" alt="동네한끼 웹사이트 첫 화면 스크린샷" loading="lazy">
+          <span class="card__badge card__badge--live">LIVE</span>
+          <h2 class="card__title">PROJECT 5</h2>
           <p class="card__desc">광고도 순위도 없는 지역 식당 전체 목록 서비스</p>
         </a>
       </li>
       <li>
-        <a class="card" href="https://water-app-phi.vercel.app/" target="_blank" rel="noopener noreferrer" data-index="4">
+        <a class="card" href="https://water-app-phi.vercel.app/" target="_blank" rel="noopener noreferrer" data-index="5">
           <img class="card__thumb" src="assets/project5-thumb.jpg" alt="물 한 잔 웹사이트 첫 화면 스크린샷" loading="lazy">
           <span class="card__badge card__badge--live">LIVE</span>
-          <h2 class="card__title">PROJECT 5</h2>
+          <h2 class="card__title">PROJECT 6</h2>
           <p class="card__desc">하루 물 섭취량을 잔 단위로 기록하는 웹앱</p>
         </a>
       </li>
       <li>
         <button class="card" type="button" data-index="5">
           <span class="card__badge">COMING SOON</span>
-          <h2 class="card__title">PROJECT 6</h2>
+          <h2 class="card__title">PROJECT 7</h2>
           <p class="card__desc">음악의 파형에 맞춰 화면이 반응하는 비주얼라이저를 만들고 있습니다</p>
         </button>
       </li>
       <li>
         <button class="card" type="button" data-index="6">
           <span class="card__badge">COMING SOON</span>
-          <h2 class="card__title">PROJECT 7</h2>
+          <h2 class="card__title">PROJECT 8</h2>
           <p class="card__desc">아티스트와 협업해 짧은 뮤직비디오를 촬영하고 그 과정을 기록합니다</p>
         </button>
       </li>
       <li>
         <button class="card" type="button" data-index="7">
           <span class="card__badge">COMING SOON</span>
-          <h2 class="card__title">PROJECT 8</h2>
+          <h2 class="card__title">PROJECT 9</h2>
           <p class="card__desc">배우·스태프와 짧은 내러티브 영상을 촬영해 웹으로 옮깁니다</p>
         </button>
       </li>
